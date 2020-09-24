@@ -25,7 +25,12 @@ app.get('/articles', (req, res, next) => {
 })
 
 app.get('/articles/:article_id', (req, res, next) => {
-  res.json({ 'requested_id': req.params.article_id, this: 'should fail' })
+  const knexInstance = req.app.get('db')
+  ArticlesService.getById(knexInstance, req.params.article_id)
+    .then(article => {
+      res.json(article)
+    })
+    .catch(next)
 })
 
 app.get('/', (req, res) => {
