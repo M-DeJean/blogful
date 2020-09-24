@@ -24,6 +24,10 @@ app.get('/articles', (req, res, next) => {
     .catch(next)
 })
 
+app.get('/articles/:article_id', (req, res, next) => {
+  res.json({ 'requested_id': req.params.article_id, this: 'should fail' })
+})
+
 app.get('/', (req, res) => {
   res.send('Hello, world!')
 })
